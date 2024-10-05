@@ -16,7 +16,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:script": "eslint src/**/*.{js,jsx,ts,tsx}",
+    "lint:style": "styelint src/**/*.{css,scss}",
+    "lint": "npm run lint:script && npm run lint:style",
+    "fix:script": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
+    "fix:style": "stylelint --fix src/**/*.{css,scss}",
+    "fix": "npm run fix:script && npm run fix:style"
   },
   "eslintConfig": {
     "extends": [
@@ -37,12 +43,13 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.1",
-    "globals": "^15.10.0",
-    "prettier": "^3.3.3"
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "prettier": "^3.3.3",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard-scss": "^13.1.0"
   }
 }
