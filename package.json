@@ -17,6 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint-staged": "lint-staged",
     "lint:script": "eslint src/**/*.{js,jsx,ts,tsx}",
     "lint:style": "stylelint src/**/*.{css,scss}",
     "lint": "npm run lint:script && npm run lint:style",
