@@ -1,20 +1,20 @@
 {
-  ".js": [
+  "*.js": [
     "eslint",
     "prettier --write"
   ],
-  ".ts": [
+  "*.ts": [
     "eslint",
     "prettier --write"
   ],
-  ".jsx": [
+  "*.jsx": [
     "eslint",
     "prettier --write"
   ],
-  ".tsx": [
+  "*.tsx": [
     "eslint",
     "prettier --write"
   ],
-  ".css": "stylelint",
-  ".scss": "stylelint"
+  "*.css": "stylelint",
+  "*.scss": "stylelint"
 }

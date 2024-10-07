@@ -16,7 +16,7 @@ function App() {
         </p>
         <span>This is the way I wish to be written</span>
         <div>
-          <h1>dskkdlskdlsdlskdlskdlskdlskdlssdksldksld</h1>
+          <h1>dskkdlskdlsdlskdlskdlskdlskdlssd</h1>
         </div>
         <a
           className="App-link"
