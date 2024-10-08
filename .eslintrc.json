@@ -22,7 +22,8 @@
     "prettier/prettier": [
       "error",
       {
-        "singleAttributePerLine": true
+        "singleAttributePerLine": true,
+        "endOfLine": "auto"
       }
     ]
   },

@@ -3,6 +3,6 @@
   "printWidth": 80,
   "semi": true,
   "singleAttributePerLine": true,
-  "endOfLine": "lf",
+  "endOfLine": "auto",
   "tabWidth": 2
 }
