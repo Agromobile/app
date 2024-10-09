@@ -1,25 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Navbar, Footer } from './components';
+import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages';
+import Layout from './layout';
 
 function App() {
   return (
     <>
-      <Navbar />
-      <BrowserRouter>
-        <Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={<Layout />}
+        >
           <Route
-            path="/"
+            index
             element={<Home />}
           />
 
+          {/* Matches all undefined routes */}
           <Route
-            path="/about"
-            element={<h1>About Us</h1>}
+            path="*"
+            element={<h1>404: Page Not Found</h1>}
           />
-        </Routes>
-      </BrowserRouter>
-      <Footer />
+        </Route>
+      </Routes>
     </>
   );
 }
