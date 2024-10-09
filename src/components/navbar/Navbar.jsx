@@ -1,4 +1,4 @@
-import './navbar.css';
+import './navbar.scss';
 import { IoCartOutline } from 'react-icons/io5';
 import { FaBars } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
