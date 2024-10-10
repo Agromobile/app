@@ -4,6 +4,7 @@ import { FaBars } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logoMobile from '../../assets/small-logo.png';
 
 export default function Navbar() {
@@ -37,6 +38,8 @@ export default function Navbar() {
 }
 
 const DesktopTableNav = () => {
+  const location = useLocation();
+
   return (
     <div>
       <nav className="navbar">
@@ -58,23 +61,28 @@ const DesktopTableNav = () => {
         <div className="nav-right">
           <div className="delivery">
             <span>Home Delivery</span>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="delivery-link"
             >
               Enter Your Delivery Address
-            </a>
+            </Link>
           </div>
           <div className="user-links">
-            <a href="/login">Log In</a>
-            <a href="/signup">Sign Up</a>
-            <a href="/sell">Sell</a>
-            <a
-              href="/cart"
+            <Link to="/login">Log In</Link>
+            <Link
+              to="/signup"
+              state={{ previousLocation: location }}
+            >
+              Sign Up
+            </Link>
+            <Link to="/sell">Sell</Link>
+            <Link
+              to="/cart"
               className="cart-icon"
             >
               <IoCartOutline />
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -99,12 +107,12 @@ const MobileNav = ({ menuOpen, setMenuOpen }) => {
         <div className="mobile-details">
           <div className="delivery-mobile">
             <span>Home Delivery</span>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="delivery-link"
             >
               Enter Your Delivery Address
-            </a>
+            </Link>
           </div>
           <FaBars
             className="fa-bars"
@@ -131,21 +139,21 @@ const MobileNav = ({ menuOpen, setMenuOpen }) => {
         </span>
         <ul className="menu-links">
           <li>
-            <a href="/login">Log In</a>
+            <Link to="/login">Log In</Link>
           </li>
           <li>
-            <a href="/signup">Sign Up</a>
+            <Link to="/signup">Sign Up</Link>
           </li>
           <li>
-            <a href="/sell">Sell</a>
+            <Link to="/sell">Sell</Link>
           </li>
           <li>
-            <a
-              href="/cart"
+            <Link
+              to="/cart"
               className="cart-icon"
             >
               <IoCartOutline />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
