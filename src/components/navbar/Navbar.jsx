@@ -94,6 +94,7 @@ const DesktopTableNav = () => {
 // Updated MobileNav to accept the props `menuOpen` and `setMenuOpen`
 const MobileNav = ({ menuOpen, setMenuOpen }) => {
   const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle the state
+  const location = useLocation(); // Duplicate use case of useLocation()
 
   return (
     <nav className="navbar-mobile">
@@ -142,7 +143,12 @@ const MobileNav = ({ menuOpen, setMenuOpen }) => {
             <Link to="/login">Log In</Link>
           </li>
           <li>
-            <Link to="/signup">Sign Up</Link>
+            <Link
+              to="/signup"
+              state={{ previousLocation: location }}
+            >
+              Sign Up
+            </Link>
           </li>
           <li>
             <Link to="/sell">Sell</Link>
