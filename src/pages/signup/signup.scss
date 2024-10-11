@@ -13,7 +13,7 @@
 
   article {
     background-color: white;
-    width: 30%;
+    width: 40%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -53,12 +53,12 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    border: 2px solid #d7d7d7;
-    border-radius: 20px;
+    border: 1px solid #949494;
+    border-radius: 40px;
 
     .tab-button {
       flex: 1;
-      padding: 7px;
+      padding: 10px;
       border: 0;
       border-radius: 20px;
       font-weight: bold;
@@ -81,6 +81,74 @@
   }
 }
 
+// INPUT FIELDS General styling
+.input {
+  width: inherit;
+  display: flex;
+  position: relative;
+  height: 50px;
+  border: 2px solid #949494;
+  margin: 7px 0;
+  padding: 7px 0;
+  border-radius: 40px;
+  background-color: #ebebeb;
+  box-shadow: inset;
+
+  &.active label {
+    padding: 0 2px;
+    transform: translate(0, -40%) scale(0.65);
+  }
+
+  // &:focus-within label {
+  //   padding: 0 2px;
+  //   transform: translate(0, -40%) scale(0.65);
+  // }
+
+  input {
+    min-width: 85%;
+    height: 100%;
+    font-weight: bold;
+    padding: 10px;
+    border: 0;
+    background-color: inherit;
+    border-radius: inherit;
+
+    &.stretch {
+      width: 100%;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    font-size: 16px;
+    color: #464646;
+    padding: 0 12px;
+    pointer-events: none;
+    position: absolute;
+    transform: translate(0, 26%) scale(1);
+    transition:
+      transform 0.3s ease-in-out,
+      padding 0.2s ease-in-out;
+  }
+
+  .toggle-visibility {
+    border: 0;
+    font-size: 1.5rem;
+    align-self: center;
+    display: inline-block;
+    min-width: 12%;
+    color: #464646;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 // MEDIA BREAKPOINT: Mobile Devices
 @media (width >= 320px) and (width <= 480px) {
   .signup-page {
@@ -88,6 +156,18 @@
       width: 100%;
 
       // height: 100vh;
+    }
+
+    .heading {
+      .close-form {
+        font-size: 2rem;
+      }
+    }
+
+    .tab-buttons {
+      .tab-button {
+        padding: 7px;
+      }
     }
   }
 }
