@@ -80,6 +80,20 @@ function EmailInput() {
 }
 
 // TODO: PhoneInput: Utility component for handling phone input along with verification
+function PhoneInput() {
+  const { active, handleToggleActiveLabel } = useActiveInput();
+  return (
+    <div className={`input ${active ? 'active' : ''}`}>
+      <input
+        type="text"
+        id="phone"
+        className="stretch"
+        onChange={handleToggleActiveLabel}
+      />
+      <label htmlFor="phone">Label</label>
+    </div>
+  );
+}
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
@@ -88,6 +102,7 @@ function SignUpPersonal() {
       <TextInput />
       <PasswordInput />
       <EmailInput />
+      <PhoneInput />
     </form>
   );
 }
