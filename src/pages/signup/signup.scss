@@ -108,6 +108,7 @@
     min-width: 85%;
     height: 100%;
     font-weight: bold;
+    font-size: 1rem;
     padding: 10px;
     border: 0;
     background-color: inherit;
@@ -168,6 +169,12 @@
       .tab-button {
         padding: 7px;
       }
+    }
+  }
+
+  .input {
+    input {
+      font-size: 0.8rem;
     }
   }
 }

@@ -1,5 +1,7 @@
 import './signup.scss';
 import { useState } from 'react';
+import { PatternFormat } from 'react-number-format';
+import Proptypes from 'prop-types';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import logo from '../../assets/small-logo.png';
 
@@ -19,7 +21,7 @@ function useActiveInput() {
 }
 
 // TextInput: Utility component for handling text input
-function TextInput() {
+function TextInput({ labelText = 'Label' }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
@@ -29,13 +31,17 @@ function TextInput() {
         className="stretch"
         onChange={handleToggleActiveLabel}
       />
-      <label htmlFor="text">Label</label>
+      <label htmlFor="text">{labelText}</label>
     </div>
   );
 }
 
+TextInput.propTypes = {
+  labelText: Proptypes.string.isRequired,
+};
+
 // PasswordInput: Utility component for handling password input
-function PasswordInput() {
+function PasswordInput({ labelText = 'Label' }) {
   const [isVisible, setIsVisible] = useState(false);
   const { active, handleToggleActiveLabel } = useActiveInput();
 
@@ -51,7 +57,7 @@ function PasswordInput() {
         id="password"
         onChange={handleToggleActiveLabel}
       />
-      <label htmlFor="password">Label</label>
+      <label htmlFor="password">{labelText}</label>
       <button
         className="toggle-visibility"
         onClick={handleToggleVisibility}
@@ -62,8 +68,12 @@ function PasswordInput() {
   );
 }
 
-// TODO: EmailInput: Utility component for handling email input along with verification
-function EmailInput() {
+PasswordInput.propTypes = {
+  labelText: Proptypes.string.isRequired,
+};
+
+// EmailInput: Utility component for handling email input along with suggestions
+function EmailInput({ labelText = 'Label' }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
@@ -72,28 +82,40 @@ function EmailInput() {
         id="email"
         className="stretch"
         onChange={handleToggleActiveLabel}
-        autoCorrect="email"
       />
-      <label htmlFor="email">Label</label>
+      <label htmlFor="email">{labelText}</label>
     </div>
   );
 }
 
-// TODO: PhoneInput: Utility component for handling phone input along with verification
-function PhoneInput() {
+EmailInput.propTypes = {
+  labelText: Proptypes.string.isRequired,
+};
+
+// PhoneInput: Utility component for handling phone input along with autoformatting
+function PhoneInput({ labelText = 'Label' }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
-      <input
-        type="text"
+      {/**I used PatternFormat in the code below because it gave me a
+      simpler way to implement automatic formatting for the phone number
+      as the user types.*/}
+      <PatternFormat
+        type="tel"
         id="phone"
         className="stretch"
         onChange={handleToggleActiveLabel}
+        format="+234 - #### - ### - ###"
+        mask="#"
       />
-      <label htmlFor="phone">Label</label>
+      <label htmlFor="phone">{labelText}</label>
     </div>
   );
 }
+
+PhoneInput.propTypes = {
+  labelText: Proptypes.string.isRequired,
+};
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
