@@ -1,9 +1,11 @@
 import './signup.scss';
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { PatternFormat } from 'react-number-format';
 import Proptypes from 'prop-types';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { FaApple, FaFacebook } from 'react-icons/fa';
 import logo from '../../assets/small-logo.png';
 
 // Utility Hook: used to handle active state for inputs
@@ -199,6 +201,42 @@ function SignUpPersonal() {
         value={phoneNo}
         setter={setPhoneNo}
       />
+      <div className="privacy-message">
+        By registering a personal account, you agree to Agromobile’s{' '}
+        <Link to="#">privacy policy</Link> and{' '}
+        <Link to="#">customer agreement</Link>
+      </div>
+      <button
+        type="submit"
+        className="sign-up-button"
+      >
+        Sign Up
+      </button>
+
+      <p className="alt-demarcator">
+        <span>or continue with</span>
+      </p>
+
+      <div className="social-buttons">
+        <button>
+          <FcGoogle />
+          Google
+        </button>
+
+        <button>
+          <FaApple />
+          Apple
+        </button>
+
+        <button>
+          <FaFacebook />
+          Facebook
+        </button>
+      </div>
+
+      <p className="signin-cta">
+        Already have an account ? <Link to="/signin">Sign In</Link>
+      </p>
     </form>
   );
 }
