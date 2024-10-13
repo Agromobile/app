@@ -1,11 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import { Home } from './pages';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Home, SignUp } from './pages';
 import Layout from './layout';
 
 function App() {
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
   return (
     <>
-      <Routes>
+      {/* Enables previous page to display simultaneously with modal page */}
+      <Routes location={previousLocation || location}>
         <Route
           path="/"
           element={<Layout />}
@@ -22,6 +25,15 @@ function App() {
           />
         </Route>
       </Routes>
+      {/* Enables modal pages to be displayed as an overlay */}
+      {previousLocation && (
+        <Routes>
+          <Route
+            path="signup"
+            element={<SignUp />}
+          />
+        </Routes>
+      )}
     </>
   );
 }
