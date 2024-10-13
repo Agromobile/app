@@ -68,12 +68,18 @@ function PasswordInput({ labelText = 'Label', value, setter }) {
         }}
       />
       <label htmlFor="password">{labelText}</label>
-      <button
-        className="toggle-visibility"
-        onClick={handleToggleVisibility}
-      >
-        {isVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-      </button>
+
+      {isVisible ? (
+        <AiOutlineEyeInvisible
+          className="toggle-visibility"
+          onClick={handleToggleVisibility}
+        />
+      ) : (
+        <AiOutlineEye
+          className="toggle-visibility"
+          onClick={handleToggleVisibility}
+        />
+      )}
     </div>
   );
 }
