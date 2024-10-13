@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { Home, SignUp } from './pages';
 import Layout from './layout';
@@ -5,6 +6,17 @@ import Layout from './layout';
 function App() {
   const location = useLocation();
   const previousLocation = location.state?.previousLocation;
+
+  // Lock screen when modal page displayed. Else, unlock
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname === '/signup') {
+      document.body.classList.add('screen-lock');
+    } else {
+      document.body.classList.remove('screen-lock');
+    }
+  }, [location]);
+
   return (
     <>
       {/* Enables previous page to display simultaneously with modal page */}
