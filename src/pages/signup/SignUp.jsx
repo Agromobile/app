@@ -1,5 +1,6 @@
 import './signup.scss';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PatternFormat } from 'react-number-format';
 import Proptypes from 'prop-types';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -119,6 +120,13 @@ EmailInput.propTypes = {
 // PhoneInput: Utility component for handling phone input along with autoformatting
 function PhoneInput({ labelText = 'Label', value, setter }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
+
+  // TODO: We may need to reformat how the phone number is actually stored in state
+  // Depending on the needs of the backend API.
+  const handlePhoneNumberUpdate = (value) => {
+    setter(value);
+  };
+
   return (
     <div className={`input ${active ? 'active' : ''}`}>
       {/**I used PatternFormat in the code below because it gave me a
@@ -130,7 +138,8 @@ function PhoneInput({ labelText = 'Label', value, setter }) {
         className="stretch"
         value={value}
         onChange={(evt) => {
-          setter(evt.target.value);
+          console.log(value);
+          handlePhoneNumberUpdate(evt.target.value);
           handleToggleActiveLabel(evt);
         }}
         format="+234 - #### - ### - ###"
@@ -155,30 +164,38 @@ PhoneInput.propTypes = {
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
-  const [text, setText] = useState('');
+  const [firstName, setFName] = useState('');
+  const [lastName, setLName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
 
   return (
     <form>
-      <TextInput
-        labelText="Text"
-        value={text}
-        setter={setText}
-      />
+      <div className="name-fields">
+        <TextInput
+          labelText="first name"
+          value={firstName}
+          setter={setFName}
+        />
+        <TextInput
+          labelText="last name"
+          value={lastName}
+          setter={setLName}
+        />
+      </div>
       <PasswordInput
-        labelText="Password"
+        labelText="password"
         value={password}
         setter={setPassword}
       />
       <EmailInput
-        labelText="Email"
+        labelText="email"
         value={email}
         setter={setEmail}
       />
       <PhoneInput
-        labelText="Phone Number (e.g +234-8038-678-894)"
+        labelText="phone Number (+234-8038-678-894)"
         value={phoneNo}
         setter={setPhoneNo}
       />
@@ -198,22 +215,42 @@ function SignUpBusiness() {
 // SignUp: Base SignUp form - contains the things shared by personal & business signup forms
 export default function SignUp() {
   const [activeForm, setActiveForm] = useState('personal');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleModalClose = () => {
+    // Tries to get the previously stored location or simply returns us to home page
+    const previousLocation = location.state.previousLocation || '/';
+    navigate(previousLocation);
+  };
 
   const handleTabSwitch = (evt) => {
-    console.log(evt.target.id);
     setActiveForm(evt.target.id);
   };
 
   return (
-    <section className="signup-page">
-      <article>
+    <section
+      className="signup-page"
+      onClick={handleModalClose}
+    >
+      <article
+        onClick={
+          // stop click event from bubbling down to form
+          (evt) => evt.stopPropagation()
+        }
+      >
         {/* Branding elements */}
         <div className="heading">
           <img
             src={logo}
             alt="agromobile small logo"
           />
-          <span className="close-form">&times;</span>
+          <span
+            className="close-form"
+            onClick={handleModalClose}
+          >
+            &times;
+          </span>
         </div>
 
         {/* Call to action */}

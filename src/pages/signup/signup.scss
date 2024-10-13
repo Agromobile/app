@@ -37,6 +37,7 @@
       font-size: 2.5rem;
       color: #1d1d1d;
       transform: translateY(-5px);
+      cursor: pointer;
     }
   }
 
@@ -52,7 +53,7 @@
     padding: 5px;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: 7px 0;
     border: 1px solid #949494;
     border-radius: 40px;
 
@@ -78,6 +79,20 @@
 
   .tab-forms {
     width: 90%;
+
+    .name-fields {
+      display: flex;
+      justify-content: space-between;
+
+      & .input {
+        flex: 1;
+        margin: 0;
+
+        &:first-of-type {
+          margin-right: 5px;
+        }
+      }
+    }
   }
 }
 
@@ -87,8 +102,8 @@
   display: flex;
   position: relative;
   height: 50px;
-  border: 2px solid #949494;
-  margin: 7px 0;
+  border: 1px solid #949494;
+  margin: 12px 0;
   padding: 7px 0;
   border-radius: 40px;
   background-color: #ebebeb;
@@ -116,11 +131,6 @@
     }
   }
 
-  // &:focus-within label {
-  //   padding: 0 2px;
-  //   transform: translate(0, -40%) scale(0.65);
-  // }
-
   input {
     min-width: 85%;
     height: 100%;
@@ -146,6 +156,7 @@
     padding: 0 12px;
     pointer-events: none;
     position: absolute;
+    text-transform: capitalize;
     transform: translate(0, 26%) scale(1);
     transition:
       transform 0.3s ease-in-out,
