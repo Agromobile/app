@@ -21,7 +21,7 @@ function useActiveInput() {
 }
 
 // TextInput: Utility component for handling text input
-function TextInput({ labelText = 'Label' }) {
+function TextInput({ labelText = 'Label', value, setter }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
@@ -29,7 +29,11 @@ function TextInput({ labelText = 'Label' }) {
         type="text"
         id="text"
         className="stretch"
-        onChange={handleToggleActiveLabel}
+        value={value}
+        onChange={(evt) => {
+          setter(evt.target.value);
+          handleToggleActiveLabel(evt);
+        }}
       />
       <label htmlFor="text">{labelText}</label>
     </div>
@@ -38,10 +42,12 @@ function TextInput({ labelText = 'Label' }) {
 
 TextInput.propTypes = {
   labelText: Proptypes.string.isRequired,
+  value: Proptypes.string.isRequired,
+  setter: Proptypes.func.isRequired,
 };
 
 // PasswordInput: Utility component for handling password input
-function PasswordInput({ labelText = 'Label' }) {
+function PasswordInput({ labelText = 'Label', value, setter }) {
   const [isVisible, setIsVisible] = useState(false);
   const { active, handleToggleActiveLabel } = useActiveInput();
 
@@ -55,7 +61,11 @@ function PasswordInput({ labelText = 'Label' }) {
       <input
         type={`${isVisible ? 'text' : 'password'}`}
         id="password"
-        onChange={handleToggleActiveLabel}
+        value={value}
+        onChange={(evt) => {
+          setter(evt.target.value);
+          handleToggleActiveLabel(evt);
+        }}
       />
       <label htmlFor="password">{labelText}</label>
       <button
@@ -70,10 +80,12 @@ function PasswordInput({ labelText = 'Label' }) {
 
 PasswordInput.propTypes = {
   labelText: Proptypes.string.isRequired,
+  value: Proptypes.string.isRequired,
+  setter: Proptypes.func.isRequired,
 };
 
 // EmailInput: Utility component for handling email input along with suggestions
-function EmailInput({ labelText = 'Label' }) {
+function EmailInput({ labelText = 'Label', value, setter }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
@@ -81,7 +93,11 @@ function EmailInput({ labelText = 'Label' }) {
         type="email"
         id="email"
         className="stretch"
-        onChange={handleToggleActiveLabel}
+        value={value}
+        onChange={(evt) => {
+          setter(evt.target.value);
+          handleToggleActiveLabel(evt);
+        }}
       />
       <label htmlFor="email">{labelText}</label>
     </div>
@@ -90,10 +106,12 @@ function EmailInput({ labelText = 'Label' }) {
 
 EmailInput.propTypes = {
   labelText: Proptypes.string.isRequired,
+  value: Proptypes.string.isRequired,
+  setter: Proptypes.func.isRequired,
 };
 
 // PhoneInput: Utility component for handling phone input along with autoformatting
-function PhoneInput({ labelText = 'Label' }) {
+function PhoneInput({ labelText = 'Label', value, setter }) {
   const { active, handleToggleActiveLabel } = useActiveInput();
   return (
     <div className={`input ${active ? 'active' : ''}`}>
@@ -104,27 +122,60 @@ function PhoneInput({ labelText = 'Label' }) {
         type="tel"
         id="phone"
         className="stretch"
-        onChange={handleToggleActiveLabel}
+        value={value}
+        onChange={(evt) => {
+          setter(evt.target.value);
+          handleToggleActiveLabel(evt);
+        }}
         format="+234 - #### - ### - ###"
         mask="#"
       />
-      <label htmlFor="phone">{labelText}</label>
+      <label
+        htmlFor="phone"
+        className="toggle-phone-number"
+        data-alt-name="Phone Number"
+      >
+        {labelText}
+      </label>
     </div>
   );
 }
 
 PhoneInput.propTypes = {
   labelText: Proptypes.string.isRequired,
+  value: Proptypes.string.isRequired,
+  setter: Proptypes.func.isRequired,
 };
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
+  const [text, setText] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+
   return (
     <form>
-      <TextInput />
-      <PasswordInput />
-      <EmailInput />
-      <PhoneInput />
+      <TextInput
+        labelText="Text"
+        value={text}
+        setter={setText}
+      />
+      <PasswordInput
+        labelText="Password"
+        value={password}
+        setter={setPassword}
+      />
+      <EmailInput
+        labelText="Email"
+        value={email}
+        setter={setEmail}
+      />
+      <PhoneInput
+        labelText="Phone Number (e.g +234-8038-678-894)"
+        value={phoneNo}
+        setter={setPhoneNo}
+      />
     </form>
   );
 }
