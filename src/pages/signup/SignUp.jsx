@@ -7,6 +7,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
 import logo from '../../assets/small-logo.png';
+import axios from 'axios';
 
 // Utility Hook: used to handle active state for inputs
 function useActiveInput() {
@@ -166,23 +167,45 @@ PhoneInput.propTypes = {
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
-  const [firstName, setFName] = useState('');
-  const [lastName, setLName] = useState('');
-  const [password, setPassword] = useState('');
+  const [first_name, setFName] = useState('');
+  const [last_name, setLName] = useState('');
+  const [phone_number, setPhoneNo] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneNo, setPhoneNo] = useState('');
+  const [password, setPassword] = useState('');
+
+  const PersonalReg = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        'http://localhost:3001/register',
+        {
+          first_name,
+          last_name,
+          phone_number,
+          email,
+          password,
+        },
+        { withCredentials: true },
+      );
+      if (response.status === 200) {
+        alert('User registered successfully');
+      }
+    } catch (err) {
+      console.error('Bad request', err);
+    }
+  };
 
   return (
-    <form>
+    <form onSubmit={PersonalReg}>
       <div className="name-fields">
         <TextInput
           labelText="first name"
-          value={firstName}
+          value={first_name}
           setter={setFName}
         />
         <TextInput
           labelText="last name"
-          value={lastName}
+          value={last_name}
           setter={setLName}
         />
       </div>
@@ -198,7 +221,7 @@ function SignUpPersonal() {
       />
       <PhoneInput
         labelText="phone Number (+234-8038-678-894)"
-        value={phoneNo}
+        value={phone_number}
         setter={setPhoneNo}
       />
       <div className="privacy-message">
