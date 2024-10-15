@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Home, SignUp } from './pages';
+import { Home, SignUp, Login } from './pages';
 import Layout from './layout';
 
 function App() {
@@ -9,8 +9,10 @@ function App() {
 
   // Lock screen when modal page displayed. Else, unlock
   useEffect(() => {
+    const lockedLocations = ['/signup', '/login'];
+
     console.log(location);
-    if (location.pathname === '/signup') {
+    if (lockedLocations.includes(location.pathname)) {
       document.body.classList.add('screen-lock');
     } else {
       document.body.classList.remove('screen-lock');
@@ -43,6 +45,10 @@ function App() {
           <Route
             path="signup"
             element={<SignUp />}
+          />
+          <Route
+            path="login"
+            element={<Login />}
           />
         </Routes>
       )}

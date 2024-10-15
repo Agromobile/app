@@ -69,7 +69,12 @@ const DesktopTableNav = () => {
             </Link>
           </div>
           <div className="user-links">
-            <Link to="/login">Log In</Link>
+            <Link
+              to="/login"
+              state={{ previousLocation: location }}
+            >
+              Log In
+            </Link>
             <Link
               to="/signup"
               state={{ previousLocation: location }}
