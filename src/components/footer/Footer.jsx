@@ -30,7 +30,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook"
+                aria-label="Visit us on Facebook"
               >
                 <FaFacebook size={32} />
               </a>
@@ -38,7 +38,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="Visit us on Instagram"
               >
                 <FaInstagram size={32} />
               </a>
@@ -46,7 +46,7 @@ export default function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn"
+                aria-label="Visit us on LinkedIn"
               >
                 <FaLinkedin size={32} />
               </a>
@@ -54,7 +54,7 @@ export default function Footer() {
                 href="https://x.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="X (Twitter)"
+                aria-label="Visit us on X formerly (Twitter)"
               >
                 <FaTwitter size={32} />
               </a>
