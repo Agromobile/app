@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logoMobile from '../../assets/small-logo.png';
-import axios from 'axios';
-//import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -41,27 +39,6 @@ export default function Navbar() {
 
 const DesktopTableNav = () => {
   const location = useLocation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  //const navigate = useNavigate();
-
-  //handle login
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(
-        'http://localhost:3001/login/personal',
-        { email, password },
-        { withCredentials: true },
-      );
-      //setToken(response.data.token);
-      setMessage('Login successful!');
-      //navigate('/Dashboard');
-    } catch (error) {
-      setMessage('Incorect username or password.');
-    }
-  };
 
   return (
     <div>
@@ -92,91 +69,7 @@ const DesktopTableNav = () => {
             </Link>
           </div>
           <div className="user-links">
-            <div
-              data-bs-toggle={'modal'}
-              data-bs-target={'#myModal'}
-              className="me-2"
-            >
-              Log In
-            </div>
-
-            <div
-              className="modal fade"
-              id="myModal"
-            >
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="modal-header mt-3 mb-3 ms-2 me-2">
-                    <img
-                      src={logoMobile}
-                      alt="logo"
-                      className="modal-title"
-                    />{' '}
-                    <button
-                      type="button"
-                      className="btn-close"
-                      data-bs-dismiss={'modal'}
-                    ></button>
-                  </div>
-                  <div className="modal-body text-center">
-                    <strong>Welcome Back!</strong> <br />
-                    <b className="text-success">Sign in</b>
-                    <form
-                      className="ms-3 me-3"
-                      onSubmit={handleLogin}
-                    >
-                      <div className="form-floating mb-3 mt-3">
-                        <input
-                          type="email"
-                          placeholder="Enter your email"
-                          className="form-control rounded-pill"
-                          name="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          style={{ backgroundColor: '#dedede' }}
-                        />
-                        <label htmlFor="email">Email</label>
-                      </div>
-                      <div className="form-floating mb-3 mt-3 border-1">
-                        <input
-                          type="password"
-                          className="form-control rounded-pill"
-                          placeholder="Enter password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          style={{ backgroundColor: '#dedede' }}
-                          name="pwd"
-                        />
-                        <label htmlFor="pwd">Password</label>
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <div className="d-flex">
-                          <input type="checkbox" />
-                          <span className="ms-2 mt-1">stay signed in</span>
-                        </div>
-                        <p className="text-success">Reset Password</p>
-                      </div>
-                      <button
-                        className="btn rounded-pill w-100 mt-3"
-                        type="submit"
-                        style={{ backgroundColor: '#ccc' }}
-                      >
-                        Sign in
-                      </button>
-                      <p className="mt-2">
-                        Dont have an account?
-                        <Link to={'/signup'}>
-                          {' '}
-                          <span className="text-success">Sign Up</span>{' '}
-                        </Link>
-                      </p>
-                      <p>{message}</p>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <Link to="/login">Log In</Link>
             <Link
               to="/signup"
               state={{ previousLocation: location }}

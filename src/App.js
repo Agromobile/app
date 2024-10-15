@@ -41,7 +41,7 @@ function App() {
       {previousLocation && (
         <Routes>
           <Route
-            path="signup"
+            path="/signup"
             element={<SignUp />}
           />
         </Routes>
