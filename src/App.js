@@ -1,11 +1,26 @@
-import { Routes, Route } from 'react-router-dom';
-import { Home } from './pages';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Home, SignUp } from './pages';
 import Layout from './layout';
 
 function App() {
+  const location = useLocation();
+  const previousLocation = location.state?.previousLocation;
+
+  // Lock screen when modal page displayed. Else, unlock
+  useEffect(() => {
+    console.log(location);
+    if (location.pathname === '/signup') {
+      document.body.classList.add('screen-lock');
+    } else {
+      document.body.classList.remove('screen-lock');
+    }
+  }, [location]);
+
   return (
     <>
-      <Routes>
+      {/* Enables previous page to display simultaneously with modal page */}
+      <Routes location={previousLocation || location}>
         <Route
           path="/"
           element={<Layout />}
@@ -22,6 +37,15 @@ function App() {
           />
         </Route>
       </Routes>
+      {/* Enables modal pages to be displayed as an overlay */}
+      {previousLocation && (
+        <Routes>
+          <Route
+            path="signup"
+            element={<SignUp />}
+          />
+        </Routes>
+      )}
     </>
   );
 }
