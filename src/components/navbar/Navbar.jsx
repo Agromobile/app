@@ -48,20 +48,24 @@ const DesktopTableNav = () => {
 
   //handle login
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(
-        'http://localhost:3001/login/personal',
-        { email, password },
-        { withCredentials: true },
-      );
-      //setToken(response.data.token);
+  e.preventDefault();
+  try {
+    const response = await axios.post(
+      'https://api-3858.onrender.com/login/personal',
+      { email, password },
+      { withCredentials: true }
+    );
+
+    if (response.status === 200) {
       setMessage('Login successful!');
-      //navigate('/Dashboard');
-    } catch (error) {
-      setMessage('Incorect username or password.');
+      // navigate('/Dashboard');
+    } else {
+      setMessage('Incorrect password or username');
     }
-  };
+  } catch (error) {
+    console.error('Bad request', error);
+  }
+};
 
   return (
     <div>
