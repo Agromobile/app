@@ -40,6 +40,10 @@ export default function Login() {
       } else {
         console.error('Incorrect password or email');
       }
+
+      // Reset the input fields
+      setEmail('');
+      setPassword('');
     } catch (err) {
       console.error(`Bad Request ${err}`);
     }
@@ -95,7 +99,7 @@ export default function Login() {
             type="submit"
             className="login-button"
           >
-            Sign Up
+            Sign In
           </button>
 
           <p className="signup-cta">

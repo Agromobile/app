@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     const lockedLocations = ['/signup', '/login'];
 
-    console.log(location);
+    // console.log(location);
     if (lockedLocations.includes(location.pathname)) {
       document.body.classList.add('screen-lock');
     } else {

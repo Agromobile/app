@@ -8,7 +8,7 @@ export default function TextInput({ labelText = 'Label', value, setter }) {
     <div className={`input ${active ? 'active' : ''}`}>
       <input
         type="text"
-        id="text"
+        id={`text-${labelText}`}
         className="stretch"
         value={value}
         onChange={(evt) => {
@@ -16,7 +16,7 @@ export default function TextInput({ labelText = 'Label', value, setter }) {
           handleToggleActiveLabel(evt);
         }}
       />
-      <label htmlFor="text">{labelText}</label>
+      <label htmlFor={`text-${labelText}`}>{labelText}</label>
     </div>
   );
 }

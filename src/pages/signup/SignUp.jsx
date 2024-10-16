@@ -47,6 +47,13 @@ function SignUpPersonal() {
       if (response.status === 200) {
         alert('User registered successfully');
       }
+
+      // Reset the input fields
+      setFName('');
+      setLName('');
+      setEmail('');
+      setPassword('');
+      setPhoneNo('');
     } catch (err) {
       console.error(`Bad Request: ${err}`);
     }
