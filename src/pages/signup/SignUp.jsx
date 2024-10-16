@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
+import axios from 'axios';
 import {
   TextInput,
   EmailInput,
@@ -21,8 +22,38 @@ function SignUpPersonal() {
   const [email, setEmail] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
 
+  const handleSignUp = async (evt) => {
+    evt.preventDefault();
+
+    // TODO: Find a better way to streamline this experience and improve
+    // the feedback mechanisms through the use of toasts.
+    try {
+      const response = await axios.post(
+        'https://api-3858.onrender.com/register',
+        {
+          first_name: firstName,
+          last_name: lastName,
+          password,
+          email,
+          phone_number: phoneNo,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      console.log(response); // For testing purposes
+
+      if (response.status === 200) {
+        alert('User registered successfully');
+      }
+    } catch (err) {
+      console.error(`Bad Request: ${err}`);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSignUp}>
       <div className="name-fields">
         <TextInput
           labelText="first name"

@@ -23,7 +23,7 @@ export default function PhoneInput({ labelText = 'Label', value, setter }) {
         className="stretch"
         value={value}
         onChange={(evt) => {
-          console.log(value);
+          // console.log(value);
           handlePhoneNumberUpdate(evt.target.value);
           handleToggleActiveLabel(evt);
         }}

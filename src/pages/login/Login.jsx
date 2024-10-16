@@ -2,6 +2,7 @@ import './login.scss';
 import logo from '../../assets/small-logo.png';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { EmailInput, PasswordInput } from '../../components';
 
 export default function Login() {
@@ -15,6 +16,33 @@ export default function Login() {
     // Tries to get the previously stored location or simply returns us to home page
     const previousLocation = location.state.previousLocation || '/';
     navigate(previousLocation);
+  };
+
+  const handleLogin = async (evt) => {
+    evt.preventDefault();
+
+    // TODO: Find a better way to streamline this experience and improve
+    // the feedback mechanisms through the use of toasts.
+    try {
+      const response = await axios.post(
+        'https://api-3858.onrender.com/login/personal',
+        {
+          email,
+          password,
+        },
+        { withCredentials: true },
+      );
+
+      console.log(response);
+
+      if (response.status === 200) {
+        alert('Login successful');
+      } else {
+        console.error('Incorrect password or email');
+      }
+    } catch (err) {
+      console.error(`Bad Request ${err}`);
+    }
   };
 
   return (
@@ -40,7 +68,7 @@ export default function Login() {
         {/* Call to action */}
         <h3>Welcome Back</h3>
 
-        <form>
+        <form onSubmit={handleLogin}>
           <EmailInput
             labelText="Email"
             value={email}
