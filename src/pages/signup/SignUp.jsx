@@ -166,6 +166,8 @@ PhoneInput.propTypes = {
 
 // TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal() {
+  const location = useLocation();
+
   const [firstName, setFName] = useState('');
   const [lastName, setLName] = useState('');
   const [password, setPassword] = useState('');
@@ -235,7 +237,13 @@ function SignUpPersonal() {
       </div>
 
       <p className="signin-cta">
-        Already have an account ? <Link to="/signin">Sign In</Link>
+        Already have an account ?{' '}
+        <Link
+          to="/login"
+          state={{ previousLocation: location.state?.previousLocation }}
+        >
+          Sign In
+        </Link>
       </p>
     </form>
   );

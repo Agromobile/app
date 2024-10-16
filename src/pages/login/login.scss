@@ -20,8 +20,80 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     overflow: auto;
     border-radius: 40px;
+  }
+
+  .heading {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+      width: 40%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .close-form {
+      font-size: 2.5rem;
+      color: #1d1d1d;
+      transform: translateY(-5px);
+      cursor: pointer;
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  .auth-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+
+    input[type='checkbox'] {
+      margin-right: 5px;
+      display: inline-block;
+    }
+
+    a {
+      color: #1e8d2c;
+    }
+  }
+
+  .login-button {
+    width: 100%;
+    margin: 15px 0;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 0;
+    border-radius: 40px;
+    background-color: #1e8d2c;
+    color: #fff;
+  }
+
+  .signup-cta {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+
+    a {
+      color: #1e8d2c;
+    }
   }
 }
 
@@ -29,6 +101,12 @@
   .login-page {
     article {
       width: 100%;
+    }
+
+    .heading {
+      .close-form {
+        font-size: 2rem;
+      }
     }
   }
 }
