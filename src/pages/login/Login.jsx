@@ -12,10 +12,13 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Can user click on submit button
+  const canSubmit = () => password !== '' && email !== '';
+
   const handleModalClose = () => {
     // Tries to get the previously stored location or simply returns us to home page
     const previousLocation = location.state.previousLocation || '/';
-    navigate(previousLocation);
+    navigate(previousLocation, { replace: true });
   };
 
   const handleLogin = async (evt) => {
@@ -72,7 +75,16 @@ export default function Login() {
         {/* Call to action */}
         <h3>Welcome Back</h3>
 
-        <form onSubmit={handleLogin}>
+        <form
+          onSubmit={
+            // If can submit: Login. Else: do nothing
+            canSubmit()
+              ? handleLogin
+              : (evt) => {
+                  evt.preventDefault();
+                }
+          }
+        >
           <EmailInput
             labelText="Email"
             value={email}
@@ -97,7 +109,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="login-button"
+            className={`login-button ${canSubmit() ? 'active' : 'disabled'}`}
           >
             Sign In
           </button>

@@ -81,8 +81,16 @@
     font-weight: bold;
     border: 0;
     border-radius: 40px;
-    background-color: #1e8d2c;
-    color: #fff;
+
+    &.active {
+      background-color: #1e8d2c;
+      color: #fff;
+    }
+
+    &.disabled {
+      background-color: #c2c2c2;
+      color: #e6e6e6;
+    }
   }
 
   .signup-cta {

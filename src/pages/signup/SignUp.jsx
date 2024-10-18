@@ -22,6 +22,14 @@ function SignUpPersonal() {
   const [email, setEmail] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
 
+  // Can user click on submit button
+  const canSubmit = () =>
+    firstName !== '' &&
+    lastName !== '' &&
+    password !== '' &&
+    email !== '' &&
+    phoneNo !== '';
+
   const handleSignUp = async (evt) => {
     evt.preventDefault();
 
@@ -48,19 +56,28 @@ function SignUpPersonal() {
         alert('User registered successfully');
       }
 
-      // Reset the input fields
-      setFName('');
-      setLName('');
-      setEmail('');
-      setPassword('');
-      setPhoneNo('');
+      // // Reset the input fields
+      // setFName('');
+      // setLName('');
+      // setEmail('');
+      // setPassword('');
+      // setPhoneNo('');
     } catch (err) {
       console.error(`Bad Request: ${err}`);
     }
   };
 
   return (
-    <form onSubmit={handleSignUp}>
+    <form
+      onSubmit={
+        // If can submit: signup. Else: do nothing
+        canSubmit()
+          ? handleSignUp
+          : (evt) => {
+              evt.preventDefault();
+            }
+      }
+    >
       <div className="name-fields">
         <TextInput
           labelText="first name"
@@ -95,7 +112,7 @@ function SignUpPersonal() {
       </div>
       <button
         type="submit"
-        className="sign-up-button"
+        className={`sign-up-button ${canSubmit() ? 'active' : 'disabled'}`}
       >
         Sign Up
       </button>
@@ -152,7 +169,7 @@ export default function SignUp() {
   const handleModalClose = () => {
     // Tries to get the previously stored location or simply returns us to home page
     const previousLocation = location.state.previousLocation || '/';
-    navigate(previousLocation);
+    navigate(previousLocation, { replace: true });
   };
 
   const handleTabSwitch = (evt) => {
