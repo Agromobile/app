@@ -22,6 +22,7 @@ export default function Navbar() {
     //   try {
     //     const response = await axios.get(
     //       'https://api-3858.onrender.com/user/personal/details',
+    //       { withCredentials: true },
     //     );
 
     //     console.log(response.status);

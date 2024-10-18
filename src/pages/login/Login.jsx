@@ -26,6 +26,10 @@ export default function Login() {
 
     // TODO: Find a better way to streamline this experience and improve
     // the feedback mechanisms through the use of toasts.
+
+    // TODO: I would also like to have some kind of loader / spinner to be displayed
+    // before the server sends back a response from the backend so as to make this entire
+    // system more interactive.
     try {
       const response = await axios.post(
         'https://api-3858.onrender.com/login/personal',
@@ -39,14 +43,14 @@ export default function Login() {
       console.log(response);
 
       if (response.status === 200) {
-        alert('Login successful');
+        alert(response.data.message);
       } else {
         console.error('Incorrect password or email');
       }
 
       // Reset the input fields
-      setEmail('');
-      setPassword('');
+      // setEmail('');
+      // setPassword('');
     } catch (err) {
       console.error(`Bad Request ${err}`);
     }
