@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logoMobile from '../../assets/small-logo.png';
+// For trial purposes only
+// import axios from 'axios';
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -16,8 +18,22 @@ export default function Navbar() {
       setScreenWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    // const retrieveLoggedInUser = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       'https://api-3858.onrender.com/user/personal/details',
+    //       { withCredentials: true },
+    //     );
 
+    //     console.log(response.status);
+    //     console.log(response);
+    //   } catch (err) {
+    //     console.error(`Oops: ${err}`);
+    //   }
+    // };
+
+    window.addEventListener('resize', handleResize);
+    // retrieveLoggedInUser();
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -69,7 +85,12 @@ const DesktopTableNav = () => {
             </Link>
           </div>
           <div className="user-links">
-            <Link to="/login">Log In</Link>
+            <Link
+              to="/login"
+              state={{ previousLocation: location }}
+            >
+              Log In
+            </Link>
             <Link
               to="/signup"
               state={{ previousLocation: location }}
