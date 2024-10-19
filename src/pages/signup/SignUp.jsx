@@ -56,7 +56,7 @@ function SignUpPersonal({ setLoading }) {
         },
       );
 
-      // console.log(response); // For testing purposes
+      console.log(response); // For testing purposes
 
       if (response.status === 200) {
         toast(response.data.message, { type: 'success' });
