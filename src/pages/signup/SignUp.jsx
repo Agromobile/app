@@ -5,15 +5,17 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
 import axios from 'axios';
+import Proptypes from 'prop-types';
 import {
   TextInput,
   EmailInput,
   PhoneInput,
   PasswordInput,
+  Loading,
 } from '../../components';
 
-// TODO: SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
-function SignUpPersonal() {
+// SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
+function SignUpPersonal({ setLoading }) {
   const location = useLocation();
 
   const [firstName, setFName] = useState('');
@@ -35,6 +37,8 @@ function SignUpPersonal() {
 
     // TODO: Find a better way to streamline this experience and improve
     // the feedback mechanisms through the use of toasts.
+
+    setLoading(true); // Enable loading bar
     try {
       const response = await axios.post(
         'https://api-3858.onrender.com/register',
@@ -53,15 +57,18 @@ function SignUpPersonal() {
       console.log(response); // For testing purposes
 
       if (response.status === 200) {
-        alert('User registered successfully');
+        alert(response.data.message);
       }
 
-      // // Reset the input fields
-      // setFName('');
-      // setLName('');
-      // setEmail('');
-      // setPassword('');
-      // setPhoneNo('');
+      // Clear input field contents
+      setFName('');
+      setLName('');
+      setEmail('');
+      setPassword('');
+      setPhoneNo('');
+
+      // disable loading bar
+      setLoading(false);
     } catch (err) {
       console.error(`Bad Request: ${err}`);
     }
@@ -151,6 +158,10 @@ function SignUpPersonal() {
   );
 }
 
+SignUpPersonal.propTypes = {
+  setLoading: Proptypes.func.isRequired,
+};
+
 // TODO: SignUpBusiness: Utility component - will contain the business signup form when I'm done
 function SignUpBusiness() {
   return (
@@ -166,6 +177,9 @@ export default function SignUp() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Trigger for the loading state
+  const [loading, setLoading] = useState(false);
+
   const handleModalClose = () => {
     // Tries to get the previously stored location or simply returns us to home page
     const previousLocation = location.state.previousLocation || '/';
@@ -175,6 +189,10 @@ export default function SignUp() {
   const handleTabSwitch = (evt) => {
     setActiveForm(evt.target.id);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section
@@ -224,7 +242,9 @@ export default function SignUp() {
 
         {/* Tab body: where the switch is to occur */}
         <div className="tab-forms">
-          {activeForm === 'personal' && <SignUpPersonal />}
+          {activeForm === 'personal' && (
+            <SignUpPersonal setLoading={setLoading} />
+          )}
           {activeForm === 'business' && <SignUpBusiness />}
         </div>
       </article>

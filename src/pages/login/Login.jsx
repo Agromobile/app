@@ -3,7 +3,7 @@ import logo from '../../assets/small-logo.png';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { EmailInput, PasswordInput } from '../../components';
+import { EmailInput, PasswordInput, Loading } from '../../components';
 
 export default function Login() {
   const location = useLocation();
@@ -11,6 +11,9 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Trigger for the loading state
+  const [loading, setLoading] = useState(false);
 
   // Can user click on submit button
   const canSubmit = () => password !== '' && email !== '';
@@ -27,9 +30,7 @@ export default function Login() {
     // TODO: Find a better way to streamline this experience and improve
     // the feedback mechanisms through the use of toasts.
 
-    // TODO: I would also like to have some kind of loader / spinner to be displayed
-    // before the server sends back a response from the backend so as to make this entire
-    // system more interactive.
+    setLoading(true); // Enable loading bar
     try {
       const response = await axios.post(
         'https://api-3858.onrender.com/login/personal',
@@ -48,13 +49,20 @@ export default function Login() {
         console.error('Incorrect password or email');
       }
 
-      // Reset the input fields
-      // setEmail('');
-      // setPassword('');
+      // clear input field contents
+      setEmail('');
+      setPassword('');
+
+      // Disable loading bar
+      setLoading(false);
     } catch (err) {
       console.error(`Bad Request ${err}`);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <section
