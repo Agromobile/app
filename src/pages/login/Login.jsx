@@ -2,6 +2,7 @@ import './login.scss';
 import logo from '../../assets/small-logo.png';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { EmailInput, PasswordInput, Loading } from '../../components';
 
@@ -44,19 +45,25 @@ export default function Login() {
       console.log(response);
 
       if (response.status === 200) {
-        alert(response.data.message);
+        // console.log(response.data.message);
+        toast(response.data.message, { type: 'success' });
       } else {
-        console.error('Incorrect password or email');
+        // console.error('Incorrect password or email');
+        toast('Incorrect password or email', { type: 'error' });
       }
 
-      // clear input field contents
-      setEmail('');
-      setPassword('');
+      // // clear input field contents
+      // setEmail('');
+      // setPassword('');
 
       // Disable loading bar
       setLoading(false);
+
+      // Redirects back to the home page
+      navigate('/');
     } catch (err) {
-      console.error(`Bad Request ${err}`);
+      // console.error(`Bad Request ${err}`);
+      toast(`Bad Request ${err}`, { type: 'error' });
     }
   };
 
@@ -65,78 +72,81 @@ export default function Login() {
   }
 
   return (
-    <section
-      className="login-page"
-      onClick={handleModalClose}
-    >
-      <article onClick={(evt) => evt.stopPropagation()}>
-        {/* Branding elements */}
-        <div className="heading">
-          <img
-            src={logo}
-            alt="agromobile small logo"
-          />
-          <span
-            className="close-form"
-            onClick={handleModalClose}
-          >
-            &times;
-          </span>
-        </div>
-
-        {/* Call to action */}
-        <h3>Welcome Back</h3>
-
-        <form
-          onSubmit={
-            // If can submit: Login. Else: do nothing
-            canSubmit()
-              ? handleLogin
-              : (evt) => {
-                  evt.preventDefault();
-                }
-          }
-        >
-          <EmailInput
-            labelText="Email"
-            value={email}
-            setter={setEmail}
-          />
-          <PasswordInput
-            labelText="Password"
-            value={password}
-            setter={setPassword}
-          />
-          <div className="auth-options">
-            <span>
-              <input
-                type="checkbox"
-                id="stay-signed-in"
-              />
-              <label htmlFor="stay-signed-in">Stay Signed In</label>
+    <>
+      <section
+        className="login-page"
+        onClick={handleModalClose}
+      >
+        <article onClick={(evt) => evt.stopPropagation()}>
+          {/* Branding elements */}
+          <div className="heading">
+            <img
+              src={logo}
+              alt="agromobile small logo"
+            />
+            <span
+              className="close-form"
+              onClick={handleModalClose}
+            >
+              &times;
             </span>
-
-            <Link to="#">Reset Password</Link>
           </div>
 
-          <button
-            type="submit"
-            className={`login-button ${canSubmit() ? 'active' : 'disabled'}`}
-          >
-            Sign In
-          </button>
+          {/* Call to action */}
+          <h3>Welcome Back</h3>
 
-          <p className="signup-cta">
-            Don&#39;t have an account ?{' '}
-            <Link
-              to="/signup"
-              state={{ previousLocation: location.state?.previousLocation }}
+          <form
+            onSubmit={
+              // If can submit: Login. Else: do nothing
+              canSubmit()
+                ? handleLogin
+                : (evt) => {
+                    evt.preventDefault();
+                  }
+            }
+          >
+            <EmailInput
+              labelText="Email"
+              value={email}
+              setter={setEmail}
+            />
+            <PasswordInput
+              labelText="Password"
+              value={password}
+              setter={setPassword}
+            />
+            <div className="auth-options">
+              <span>
+                <input
+                  type="checkbox"
+                  id="stay-signed-in"
+                />
+                <label htmlFor="stay-signed-in">Stay Signed In</label>
+              </span>
+
+              <Link to="#">Reset Password</Link>
+            </div>
+
+            <button
+              type="submit"
+              className={`login-button ${canSubmit() ? 'active' : 'disabled'}`}
             >
-              Sign Up
-            </Link>
-          </p>
-        </form>
-      </article>
-    </section>
+              Sign In
+            </button>
+
+            <p className="signup-cta">
+              Don&#39;t have an account ?{' '}
+              <Link
+                to="/signup"
+                state={{ previousLocation: location.state?.previousLocation }}
+              >
+                Sign Up
+              </Link>
+            </p>
+          </form>
+        </article>
+      </section>
+      <ToastContainer />
+    </>
   );
 }

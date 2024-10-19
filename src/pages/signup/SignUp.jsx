@@ -2,6 +2,7 @@ import './signup.scss';
 import logo from '../../assets/small-logo.png';
 import { useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import { FcGoogle } from 'react-icons/fc';
 import { FaApple, FaFacebook } from 'react-icons/fa';
 import axios from 'axios';
@@ -17,6 +18,7 @@ import {
 // SignUpPersonal: Utility component - will contain the personal signup form when I'm done.
 function SignUpPersonal({ setLoading }) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [firstName, setFName] = useState('');
   const [lastName, setLName] = useState('');
@@ -54,23 +56,28 @@ function SignUpPersonal({ setLoading }) {
         },
       );
 
-      console.log(response); // For testing purposes
+      // console.log(response); // For testing purposes
 
       if (response.status === 200) {
-        alert(response.data.message);
+        toast(response.data.message, { type: 'success' });
+      } else {
+        toast(response.data.message, { type: 'error' });
       }
 
-      // Clear input field contents
-      setFName('');
-      setLName('');
-      setEmail('');
-      setPassword('');
-      setPhoneNo('');
+      // // Clear input field contents
+      // setFName('');
+      // setLName('');
+      // setEmail('');
+      // setPassword('');
+      // setPhoneNo('');
 
       // disable loading bar
       setLoading(false);
+
+      // Redirect to the home page
+      navigate('/');
     } catch (err) {
-      console.error(`Bad Request: ${err}`);
+      toast(`Bad Request: ${err}`, { type: 'error' });
     }
   };
 
@@ -195,59 +202,62 @@ export default function SignUp() {
   }
 
   return (
-    <section
-      className="signup-page"
-      onClick={handleModalClose}
-    >
-      <article
-        onClick={
-          // stop click event from bubbling down to form
-          (evt) => evt.stopPropagation()
-        }
+    <>
+      <section
+        className="signup-page"
+        onClick={handleModalClose}
       >
-        {/* Branding elements */}
-        <div className="heading">
-          <img
-            src={logo}
-            alt="agromobile small logo"
-          />
-          <span
-            className="close-form"
-            onClick={handleModalClose}
-          >
-            &times;
-          </span>
-        </div>
+        <article
+          onClick={
+            // stop click event from bubbling down to form
+            (evt) => evt.stopPropagation()
+          }
+        >
+          {/* Branding elements */}
+          <div className="heading">
+            <img
+              src={logo}
+              alt="agromobile small logo"
+            />
+            <span
+              className="close-form"
+              onClick={handleModalClose}
+            >
+              &times;
+            </span>
+          </div>
 
-        {/* Call to action */}
-        <h3>Create an account</h3>
+          {/* Call to action */}
+          <h3>Create an account</h3>
 
-        {/* Tab buttons: click on them to switch tabs */}
-        <div className="tab-buttons">
-          <button
-            className={`tab-button ${activeForm === 'personal' ? 'active' : ''}`}
-            id="personal"
-            onClick={handleTabSwitch}
-          >
-            Personal
-          </button>
-          <button
-            className={`tab-button ${activeForm === 'business' ? 'active' : ''}`}
-            id="business"
-            onClick={handleTabSwitch}
-          >
-            Business
-          </button>
-        </div>
+          {/* Tab buttons: click on them to switch tabs */}
+          <div className="tab-buttons">
+            <button
+              className={`tab-button ${activeForm === 'personal' ? 'active' : ''}`}
+              id="personal"
+              onClick={handleTabSwitch}
+            >
+              Personal
+            </button>
+            <button
+              className={`tab-button ${activeForm === 'business' ? 'active' : ''}`}
+              id="business"
+              onClick={handleTabSwitch}
+            >
+              Business
+            </button>
+          </div>
 
-        {/* Tab body: where the switch is to occur */}
-        <div className="tab-forms">
-          {activeForm === 'personal' && (
-            <SignUpPersonal setLoading={setLoading} />
-          )}
-          {activeForm === 'business' && <SignUpBusiness />}
-        </div>
-      </article>
-    </section>
+          {/* Tab body: where the switch is to occur */}
+          <div className="tab-forms">
+            {activeForm === 'personal' && (
+              <SignUpPersonal setLoading={setLoading} />
+            )}
+            {activeForm === 'business' && <SignUpBusiness />}
+          </div>
+        </article>
+      </section>
+      <ToastContainer />
+    </>
   );
 }
