@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { FaTwitter, FaInstagram, FaLinkedin, FaFacebook } from 'react-icons/fa';
 import logo from '../../assets/small-logo.png';
 import './Footer.scss';
+
 export default function Footer() {
   return (
     <div className="container">
@@ -32,7 +33,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Visit us on Facebook"
               >
-                <FaFacebook size={32} />
+                <FaFacebook className="icon" />
               </a>
               <a
                 href="https://instagram.com"
@@ -40,7 +41,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Visit us on Instagram"
               >
-                <FaInstagram size={32} />
+                <FaInstagram className="icon" />
               </a>
               <a
                 href="https://linkedin.com"
@@ -48,7 +49,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Visit us on LinkedIn"
               >
-                <FaLinkedin size={32} />
+                <FaLinkedin className="icon" />
               </a>
               <a
                 href="https://x.com"
@@ -56,7 +57,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label="Visit us on X formerly (Twitter)"
               >
-                <FaTwitter size={32} />
+                <FaTwitter className="icon" />
               </a>
             </div>
           </div>
