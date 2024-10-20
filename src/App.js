@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Home, SignUp, Login } from './pages';
+import { Home, SignUp, Login, OrderSummary } from './pages';
 import Layout from './layout';
 
 function App() {
@@ -30,6 +30,11 @@ function App() {
           <Route
             index
             element={<Home />}
+          />
+
+          <Route
+            path="order-summary"
+            element={<OrderSummary />}
           />
 
           {/* Matches all undefined routes */}
