@@ -1,0 +1,96 @@
+// INPUT FIELDS General styling
+.input {
+  width: 100%;
+  display: flex;
+  position: relative;
+  height: 50px;
+  border: 1px solid #949494;
+  margin: 12px 0;
+  padding: 7px 0;
+  border-radius: 40px;
+  background-color: #ebebeb;
+  box-shadow: inset;
+
+  &.active label {
+    padding: 0 2px;
+    transform: translate(0, -40%) scale(0.65);
+  }
+
+  &.active .toggle-phone-number {
+    visibility: hidden;
+
+    &::after {
+      visibility: visible;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0;
+      transform: translateX(
+        -45%
+      ); // This is a very hackish way to achieve the look I'm looking for
+
+      content: 'Phone Number';
+    }
+  }
+
+  input {
+    min-width: 85%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px;
+    border: 0;
+    background-color: inherit;
+    border-radius: inherit;
+
+    &.stretch {
+      width: 100%;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    font-size: 16px;
+    color: #464646;
+    padding: 0 12px;
+    pointer-events: none;
+    position: absolute;
+    text-transform: capitalize;
+    transform: translate(0, 26%) scale(1);
+    transition:
+      transform 0.3s ease-in-out,
+      padding 0.2s ease-in-out;
+  }
+
+  .toggle-visibility {
+    border: 0;
+    font-size: 1.5rem;
+    align-self: center;
+    display: inline-block;
+    min-width: 12%;
+    color: #464646;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+// BREAKPOINT: mobile devices
+@media (width >= 320px) and (width <= 480px) {
+  .input {
+    height: 40px;
+
+    input {
+      font-size: 0.8rem;
+    }
+
+    label {
+      font-size: 12px;
+    }
+  }
+}

@@ -4,7 +4,10 @@ import { FaBars } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logoMobile from '../../assets/small-logo.png';
+// For trial purposes only
+// import axios from 'axios';
 
 export default function Navbar() {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -15,8 +18,22 @@ export default function Navbar() {
       setScreenWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    // const retrieveLoggedInUser = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       'https://api-3858.onrender.com/user/personal/details',
+    //       { withCredentials: true },
+    //     );
 
+    //     console.log(response.status);
+    //     console.log(response);
+    //   } catch (err) {
+    //     console.error(`Oops: ${err}`);
+    //   }
+    // };
+
+    window.addEventListener('resize', handleResize);
+    // retrieveLoggedInUser();
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -37,6 +54,8 @@ export default function Navbar() {
 }
 
 const DesktopTableNav = () => {
+  const location = useLocation();
+
   return (
     <div>
       <nav className="navbar">
@@ -58,23 +77,33 @@ const DesktopTableNav = () => {
         <div className="nav-right">
           <div className="delivery">
             <span>Home Delivery</span>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="delivery-link"
             >
               Enter Your Delivery Address
-            </a>
+            </Link>
           </div>
           <div className="user-links">
-            <a href="/login">Log In</a>
-            <a href="/signup">Sign Up</a>
-            <a href="/sell">Sell</a>
-            <a
-              href="/cart"
+            <Link
+              to="/login"
+              state={{ previousLocation: location }}
+            >
+              Log In
+            </Link>
+            <Link
+              to="/signup"
+              state={{ previousLocation: location }}
+            >
+              Sign Up
+            </Link>
+            <Link to="/sell">Sell</Link>
+            <Link
+              to="/cart"
               className="cart-icon"
             >
               <IoCartOutline />
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -86,6 +115,7 @@ const DesktopTableNav = () => {
 // Updated MobileNav to accept the props `menuOpen` and `setMenuOpen`
 const MobileNav = ({ menuOpen, setMenuOpen }) => {
   const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle the state
+  const location = useLocation(); // Duplicate use case of useLocation()
 
   return (
     <nav className="navbar-mobile">
@@ -99,12 +129,12 @@ const MobileNav = ({ menuOpen, setMenuOpen }) => {
         <div className="mobile-details">
           <div className="delivery-mobile">
             <span>Home Delivery</span>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="delivery-link"
             >
               Enter Your Delivery Address
-            </a>
+            </Link>
           </div>
           <FaBars
             className="fa-bars"
@@ -131,21 +161,26 @@ const MobileNav = ({ menuOpen, setMenuOpen }) => {
         </span>
         <ul className="menu-links">
           <li>
-            <a href="/login">Log In</a>
+            <Link to="/login">Log In</Link>
           </li>
           <li>
-            <a href="/signup">Sign Up</a>
+            <Link
+              to="/signup"
+              state={{ previousLocation: location }}
+            >
+              Sign Up
+            </Link>
           </li>
           <li>
-            <a href="/sell">Sell</a>
+            <Link to="/sell">Sell</Link>
           </li>
           <li>
-            <a
-              href="/cart"
+            <Link
+              to="/cart"
               className="cart-icon"
             >
               <IoCartOutline />
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
