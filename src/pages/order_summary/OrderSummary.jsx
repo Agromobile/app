@@ -2,6 +2,8 @@ import './order_summary.scss';
 import { Link } from 'react-router-dom';
 import { PiTrashThin } from 'react-icons/pi';
 import { TfiPlus, TfiMinus } from 'react-icons/tfi';
+import { FaCheckCircle } from 'react-icons/fa';
+import { IoChevronForward } from 'react-icons/io5';
 
 export default function OrderSummary() {
   //FIXME: For Development Purposes. Will be removed when we begin fetching data from the API
@@ -21,6 +23,27 @@ export default function OrderSummary() {
       imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
     },
   ];
+
+  // const deliveryInformation = [
+  //   {
+  //     id: 1,
+  //     header: 'Customer Address',
+  //     mainText: 'Prince Ngumoha',
+  //     subText: 'No. 38 Sapele street, Barnawa Kaduna | Kaduna state | +2347089699162',
+  //   },
+  //   {
+  //     id: 2,
+  //     header: 'Delivery Details',
+  //     mainText: 'Door Delivery',
+  //     subText: 'Delivery is between September 20 and September 24',
+  //   },
+  //   {
+  //     id: 3,
+  //     header: 'Payment Method',
+  //     mainText: 'Pay with cards, bank transfer or USSD',
+  //   }
+  // ]
+
   return (
     <main className="summary-page">
       <header className="discount-header">
@@ -29,6 +52,7 @@ export default function OrderSummary() {
         </span>
       </header>
       <section className="summary">
+        {/* Cart Summary Section */}
         <article>
           <div className="continue-shopping">
             <Link to="#">Continue Shopping</Link>
@@ -79,8 +103,68 @@ export default function OrderSummary() {
             </div>
           </div>
         </article>
+        {/* Additional Delivery Information */}
         <aside>
-          <p>Contains the item positioned to the right</p>
+          {/* Customer Address */}
+          <div className="info-field">
+            <div className="header">
+              <div>
+                <FaCheckCircle className="check" />
+                <span>1. Customer Address</span>
+              </div>
+              <button>
+                Edit <IoChevronForward />
+              </button>
+            </div>
+            <span className="mainText">Prince Ngumoha</span>
+            <span className="subText">
+              No. 38 Sapele street, Barnawa Kaduna | Kaduna state |
+              +2347089699162
+            </span>
+          </div>
+
+          {/* Delivery Details */}
+          <div className="info-field">
+            <div className="header">
+              <div>
+                <FaCheckCircle className="check" />
+                <span>2. Delivery Details</span>
+              </div>
+              <button>
+                Edit <IoChevronForward />
+              </button>
+            </div>
+            <span className="mainText">Door Delivery</span>
+            <span className="subText">
+              Delivery is between <em>September 20</em> and{' '}
+              <em>September 24</em>
+            </span>
+          </div>
+
+          {/* Payment Method */}
+          <div className="info-field">
+            <div className="header">
+              <div>
+                <FaCheckCircle className="check" />
+                <span>3. Payment Method</span>
+              </div>
+              {/* <button>
+                Edit <IoChevronForward />
+              </button> */}
+            </div>
+            <span className="mainText">
+              Pay with Cards, Bank Transfers or USSD
+            </span>
+          </div>
+
+          {/* Confirm Order */}
+          <div className="confirm-order">
+            <button>Confirm order</button>
+            <span className="terms">
+              By proceeding, you are automatically agreeing to Agromobile&#39;s
+              terms and conditions
+            </span>
+          </div>
         </aside>
         <div className="related-products">
           <p>Carousel of related products to also add to your cart.</p>
