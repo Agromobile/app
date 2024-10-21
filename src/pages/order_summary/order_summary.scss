@@ -288,6 +288,29 @@
         }
       }
     }
+
+    aside {
+      .info-field {
+        margin: 5px 0;
+
+        &:last-of-type {
+          margin-bottom: 20px;
+        }
+      }
+
+      .confirm-order {
+        width: 90%;
+
+        button {
+          padding: 3px;
+          font-size: 0.9rem;
+        }
+
+        .terms {
+          font-size: 0.4rem;
+        }
+      }
+    }
   }
 
   // CARD
