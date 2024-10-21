@@ -13,12 +13,24 @@
     }
   }
 
+  .summary {
+    width: 100%;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
   article {
+    // background-color: red;
+    grid-row: 1 / 4;
+    overflow: auto;
+
     .continue-shopping {
       width: 100%;
       background-color: #ededed;
       color: black;
-      padding: 15px 0;
+      padding: 10px 0;
 
       a {
         color: inherit;
@@ -26,6 +38,127 @@
         font-weight: bold;
         font-size: medium;
         margin-left: 5%;
+      }
+    }
+
+    h3 {
+      margin-left: 5%;
+      letter-spacing: 0.3px;
+      text-transform: capitalize;
+    }
+
+    .cart-contents {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+
+      .content {
+        height: 100px;
+        width: 100%;
+      }
+    }
+
+    .total-field {
+      width: 80%;
+      box-shadow: -1px -4px 2px #949494;
+      padding: 7px 0;
+      align-self: flex-end;
+
+      .details {
+        margin-left: 31%;
+        width: 40%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        span {
+          font-weight: medium;
+          letter-spacing: 0.3px;
+
+          &:last-of-type {
+            font-weight: bolder;
+          }
+        }
+      }
+    }
+  }
+
+  aside {
+    background-color: blue;
+    grid-row: 1 / 5;
+  }
+
+  .related-products {
+    background-color: green;
+  }
+}
+
+// CARD
+.card {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  margin: 2px 0;
+
+  .image {
+    flex: 1;
+    height: inherit;
+    object-position: center;
+    object-fit: contain;
+  }
+
+  .details {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .item-name {
+      text-transform: capitalize;
+      font-weight: bold;
+      letter-spacing: 0.2px;
+    }
+
+    div {
+      display: flex;
+      width: 60%;
+      justify-content: space-between;
+      align-items: center;
+
+      .item-price {
+        letter-spacing: 0.2px;
+        color: #949494;
+      }
+
+      .delete-item {
+        border: 1.5px solid #949494;
+        padding: 5px;
+        font-size: 1.1rem;
+        background-color: transparent;
+        color: #949494;
+
+        // Very hacky solution, Needs to be improved 👇🏿👇🏿
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .quantity-field {
+        width: 40%;
+        padding: 2px 3px;
+        border: 1.5px solid #949494;
+        border-radius: 40px;
+
+        .controls {
+          font-weight: bold;
+          color: #949494;
+
+          &.active {
+            color: #008000;
+          }
+        }
       }
     }
   }
@@ -44,11 +177,41 @@
       }
     }
 
+    .summary {
+      display: block;
+      height: fit-content;
+    }
+
     article {
       .continue-shopping {
         a {
           font-size: smaller;
         }
+      }
+
+      .cart-contents {
+        .content {
+          height: 70px;
+        }
+      }
+
+      .total-field {
+        width: 100%;
+
+        .details {
+          margin-left: 45%;
+        }
+      }
+    }
+  }
+
+  // CARD
+  .card {
+    margin: 5px 0;
+
+    .details {
+      div {
+        width: 90%;
       }
     }
   }
