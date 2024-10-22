@@ -4,6 +4,31 @@ import { PiTrashThin } from 'react-icons/pi';
 import { TfiPlus, TfiMinus } from 'react-icons/tfi';
 import { FaCheckCircle } from 'react-icons/fa';
 import { IoChevronForward } from 'react-icons/io5';
+// import Proptypes from 'prop-types';
+
+// function Carousel({ items }) {
+//   return (
+//     <div>
+//       <div className="header">
+//         <span>Recommended for you</span>
+//       </div>
+//       <div className="product-carousel">
+//         {items.map((product) => (
+//           <div
+//             key={product.id}
+//             className="product-card"
+//           >
+//             {product.name}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
+// Carousel.propTypes = {
+//   items: Proptypes.array.isRequired,
+// };
 
 export default function OrderSummary() {
   //FIXME: For Development Purposes. Will be removed when we begin fetching data from the API
@@ -24,25 +49,78 @@ export default function OrderSummary() {
     },
   ];
 
-  // const deliveryInformation = [
+  // const recommendedProducts = [
   //   {
   //     id: 1,
-  //     header: 'Customer Address',
-  //     mainText: 'Prince Ngumoha',
-  //     subText: 'No. 38 Sapele street, Barnawa Kaduna | Kaduna state | +2347089699162',
+  //     name: 'Apples 1',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
   //   },
   //   {
   //     id: 2,
-  //     header: 'Delivery Details',
-  //     mainText: 'Door Delivery',
-  //     subText: 'Delivery is between September 20 and September 24',
+  //     name: 'Apples 2',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
   //   },
   //   {
   //     id: 3,
-  //     header: 'Payment Method',
-  //     mainText: 'Pay with cards, bank transfer or USSD',
-  //   }
-  // ]
+  //     name: 'Apples 3',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Apples 4',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Apples 5',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Apples 6',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Apples 7',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 8,
+  //     name: 'Apples 8',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 9,
+  //     name: 'Apples 9',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  //   {
+  //     id: 10,
+  //     name: 'Apples 10',
+  //     currentPrice: 30000,
+  //     previousPrice: 40000,
+  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+  //   },
+  // ];
 
   return (
     <main className="summary-page">
@@ -103,6 +181,7 @@ export default function OrderSummary() {
             </div>
           </div>
         </article>
+
         {/* Additional Delivery Information */}
         <aside>
           {/* Customer Address */}
@@ -166,9 +245,11 @@ export default function OrderSummary() {
             </span>
           </div>
         </aside>
-        <div className="related-products">
-          <p>Carousel of related products to also add to your cart.</p>
-        </div>
+
+        {/* Related Products Carousel */}
+        {/* <div className="related-products">
+          <Carousel items={recommendedProducts} />
+        </div> */}
       </section>
     </main>
   );
