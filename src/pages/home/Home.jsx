@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import LandingPage from './LandingPage';
+import HomePage from '../HomePage/HomePage';
 
 export default function Home() {
-  const [isAuthenticated] = useState(false);
+  const [isAuthenticated] = useState(true);
 
-  return isAuthenticated ? (
-    <h1>Auth Homepage.jsx content should go here</h1>
-  ) : (
-    <LandingPage />
-  );
+  return isAuthenticated ? <HomePage /> : <LandingPage />;
 }
