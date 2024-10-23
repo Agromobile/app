@@ -5,6 +5,7 @@ import { PiTrashThin } from 'react-icons/pi';
 import { TfiPlus, TfiMinus } from 'react-icons/tfi';
 import { FaCheckCircle } from 'react-icons/fa';
 import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
+import { FiPlusCircle } from 'react-icons/fi';
 import Proptypes from 'prop-types';
 
 // TODO: This is still a very hacky implementation of a multi-product carousel.
@@ -79,7 +80,21 @@ function Carousel({ items }) {
               key={product.id}
               className="product-card"
             >
-              <span>{product.name}</span>
+              {/* Produce image */}
+              <img src={product.imageURL} />
+
+              {/* Produce preview */}
+              <div>
+                <span className="name">{product.name}</span>
+                <span className="currPrice">₦{product.currentPrice}</span>
+                <span className="prevPrice">₦{product.previousPrice}</span>
+              </div>
+
+              {/* Add to cart button */}
+              <button>
+                <span>Add to cart</span>
+                <FiPlusCircle />
+              </button>
             </div>
           ))}
         </div>
