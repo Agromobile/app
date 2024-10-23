@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { Home, SignUp, Login } from './pages';
+import { Home, SignUp, Login, Sell, Produceselect } from './pages';
 import Layout from './layout';
 
 function App() {
@@ -30,6 +30,14 @@ function App() {
           <Route
             index
             element={<Home />}
+          />
+          <Route
+            path="sell"
+            element={<Sell />}
+          />
+          <Route
+            path="produceselect"
+            element={<Produceselect />}
           />
 
           {/* Matches all undefined routes */}
