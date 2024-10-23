@@ -1,34 +1,96 @@
 import './order_summary.scss';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PiTrashThin } from 'react-icons/pi';
 import { TfiPlus, TfiMinus } from 'react-icons/tfi';
 import { FaCheckCircle } from 'react-icons/fa';
-import { IoChevronForward } from 'react-icons/io5';
-// import Proptypes from 'prop-types';
+import { IoChevronForward, IoChevronBack } from 'react-icons/io5';
+import Proptypes from 'prop-types';
 
-// function Carousel({ items }) {
-//   return (
-//     <div>
-//       <div className="header">
-//         <span>Recommended for you</span>
-//       </div>
-//       <div className="product-carousel">
-//         {items.map((product) => (
-//           <div
-//             key={product.id}
-//             className="product-card"
-//           >
-//             {product.name}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+// TODO: This is still a very hacky implementation of a multi-product carousel.
+// It needs to be improved and refined.
+function Carousel({ items }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleItems, setVisibleItems] = useState(5);
 
-// Carousel.propTypes = {
-//   items: Proptypes.array.isRequired,
-// };
+  useEffect(() => {
+    // Function to set the number of visible items based on the size of the screen.
+    const updateVisibleItems = () => {
+      if (window.innerWidth >= 1024) {
+        setVisibleItems(5); // Desktop
+      } else if (window.innerWidth >= 768) {
+        setVisibleItems(3); // Tablet
+      } else {
+        setVisibleItems(2); // Mobile
+      }
+    };
+
+    updateVisibleItems(); // set on initial render
+
+    // setup event listener to handle screen resizing
+    window.addEventListener('resize', updateVisibleItems);
+
+    return () => {
+      window.removeEventListener('resize', updateVisibleItems);
+    };
+  }, []);
+
+  const moveToNext = () => {
+    if (currentIndex + visibleItems < items.length + 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const moveToPrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  return (
+    <div className="carousel">
+      <div className="header">
+        <span>Recommended for you</span>
+        <div className="controls">
+          <button
+            onClick={moveToPrev}
+            disabled={currentIndex === 0}
+          >
+            <IoChevronBack />
+          </button>
+          <button
+            onClick={moveToNext}
+            disabled={currentIndex + visibleItems > items.length}
+          >
+            <IoChevronForward />
+          </button>
+        </div>
+      </div>
+      <div className="body">
+        <div
+          className="slider"
+          // Supposed to add a nice translation effect leftward
+          style={{
+            transform: `translateX(-${(currentIndex / visibleItems) * 100}%)`,
+          }}
+        >
+          {items.map((product) => (
+            <div
+              key={product.id}
+              className="product-card"
+            >
+              <span>{product.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Carousel.propTypes = {
+  items: Proptypes.array.isRequired,
+};
 
 export default function OrderSummary() {
   //FIXME: For Development Purposes. Will be removed when we begin fetching data from the API
@@ -49,78 +111,85 @@ export default function OrderSummary() {
     },
   ];
 
-  // const recommendedProducts = [
-  //   {
-  //     id: 1,
-  //     name: 'Apples 1',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Apples 2',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Apples 3',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'Apples 4',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Apples 5',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Apples 6',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 7,
-  //     name: 'Apples 7',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 8,
-  //     name: 'Apples 8',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 9,
-  //     name: 'Apples 9',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  //   {
-  //     id: 10,
-  //     name: 'Apples 10',
-  //     currentPrice: 30000,
-  //     previousPrice: 40000,
-  //     imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
-  //   },
-  // ];
+  const recommendedProducts = [
+    {
+      id: 1,
+      name: 'Apples 1',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 2,
+      name: 'Apples 2',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 3,
+      name: 'Apples 3',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 4,
+      name: 'Apples 4',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 5,
+      name: 'Apples 5',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 6,
+      name: 'Apples 6',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 7,
+      name: 'Apples 7',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 8,
+      name: 'Apples 8',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 9,
+      name: 'Apples 9',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 10,
+      name: 'Apples 10',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+    {
+      id: 11,
+      name: 'Apples 11',
+      currentPrice: 30000,
+      previousPrice: 40000,
+      imageURL: 'https://pngfre.com/wp-content/uploads/apple-53.png',
+    },
+  ];
 
   return (
     <main className="summary-page">
@@ -247,9 +316,9 @@ export default function OrderSummary() {
         </aside>
 
         {/* Related Products Carousel */}
-        {/* <div className="related-products">
+        <div className="related-products">
           <Carousel items={recommendedProducts} />
-        </div> */}
+        </div>
       </section>
     </main>
   );
