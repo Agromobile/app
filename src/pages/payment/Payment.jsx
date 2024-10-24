@@ -60,14 +60,6 @@ export default function Payment() {
         <section>
           <div className="header">
             <span>choose a new payment method</span>
-            {/* <button onClick={() => setDetailsActive(!orderDetailsActive)}>
-              {orderDetailsActive ? (
-                <span>hide details</span>
-              ) : (
-                <span>see details</span>
-              )}
-              <IoChevronForward />
-            </button> */}
           </div>
           {/* Pay with USSD or bank transfer */}
           <div className="body">
@@ -91,10 +83,14 @@ export default function Payment() {
             </div>
             {payOption === 'option1' && (
               <div className="details">
-                {' '}
-                <span>
-                  This is supposed to contain payment selection information
-                </span>
+                <div>
+                  <input
+                    type="radio"
+                    id="bt"
+                    checked={payOption === 'option1'}
+                  />
+                  <label htmlFor="bt">Bank Transfer</label>
+                </div>
               </div>
             )}
           </div>
