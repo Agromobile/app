@@ -6,6 +6,13 @@ import '../../components/product/product.scss'; // Product styles
 import '../../components/product/product.jsx'; // Reuse Product component
 import { FaCircleArrowUp } from 'react-icons/fa6';
 
+// Define API endpoints for the three categories
+const CATEGORY_ENDPOINTS = {
+  fresh: 'https://api-3858.onrender.com/fresh/deal',
+  popular: 'https://api-3858.onrender.com/popular',
+  provision: 'https://api-3858.onrender.com/provision',
+};
+
 const ProductDetail = () => {
   const { id } = useParams(); // Get the product ID from the URL
   const [product, setProduct] = useState(null); // Current product state
@@ -14,13 +21,6 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
   const navigate = useNavigate(); // For navigation
-
-  // Define API endpoints for the three categories
-  const CATEGORY_ENDPOINTS = {
-    fresh: 'https://api-3858.onrender.com/fresh/deal',
-    popular: 'https://api-3858.onrender.com/popular',
-    provision: 'https://api-3858.onrender.com/provision',
-  };
 
   // Fetch product details and related products based on category
   useEffect(() => {
@@ -56,11 +56,11 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    console.log(`Added ${quantity} of ${product.name} to cart`);
+    console.log(`Added ${quantity} of ${product.product_name} to cart`);
   };
 
   const handleProductClick = (productid) => {
-    navigate(`/product/${productid}`); // Navigate to the selected product's page
+    navigate(`/detail/${productid}`); // Navigate to the selected product's page
   };
 
   return (
@@ -72,12 +72,12 @@ const ProductDetail = () => {
       {product && (
         <div className="product-details">
           <img
-            src={product.image}
-            alt={product.name}
+            src={product.product_image}
+            alt={product.product_name}
             className="product-image"
           />
           <div className="product-info">
-            <h2>{product.name}</h2>
+            <h2>{product.product_name}</h2>
             <p>{product.description}</p>
             <div className="quantity-section">
               <button onClick={() => setQuantity((q) => Math.max(1, q - 1))}>
@@ -108,13 +108,20 @@ const ProductDetail = () => {
                 onClick={() => handleProductClick(product.id)} // Navigate on click
               >
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.product_image}
+                  alt={product.product_name}
                   className="product-image"
                 />
                 <div className="product-info">
-                  <h4>{product.name}</h4>
-                  <p>${product.price}</p>
+                  <h4>{product.product_name}</h4>
+                  <p className="product-price">
+                    ₦{product.product_discount_price}
+                    {product.product_price && (
+                      <span className="product-old-price">
+                        ₦{product.product_price}
+                      </span>
+                    )}
+                  </p>
                 </div>
               </div>
             ))

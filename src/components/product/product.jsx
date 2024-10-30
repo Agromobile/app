@@ -12,7 +12,7 @@ function Product({ products }) {
             key={product.id}
           >
             <Link
-              to={`/product/${product.id}`}
+              to={`/detail/${product.id}`}
               className="product-link"
             >
               <div className="product_pics">

@@ -44,7 +44,7 @@ function App() {
             element={<Sell />}
           />
           <Route
-            path="/product/:id"
+            path="/detail/:id"
             element={<ProductDetail />}
           />
           <Route
