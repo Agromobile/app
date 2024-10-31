@@ -5,10 +5,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { EmailInput, PasswordInput, Loading } from '../../components';
+import { useAuth } from '../../context/auth-context';
 
 export default function Login() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { createLoginSession } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,15 +48,12 @@ export default function Login() {
 
       if (response.status === 200) {
         // console.log(response.data.message);
+        createLoginSession();
         toast(response.data.message, { type: 'success' });
       } else {
         // console.error('Incorrect password or email');
         toast('Incorrect password or email', { type: 'error' });
       }
-
-      // // clear input field contents
-      // setEmail('');
-      // setPassword('');
 
       // Disable loading bar
       setLoading(false);
@@ -145,8 +144,8 @@ export default function Login() {
             </p>
           </form>
         </article>
+        <ToastContainer />
       </section>
-      <ToastContainer />
     </>
   );
 }

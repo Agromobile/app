@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useAuth } from '../context/auth-context';
 import { NavbarMain, Navbar } from '.';
 
 export default function NavbarAuth() {
-  const [isAuthenticated] = useState(true);
-
+  const { isAuthenticated } = useAuth();
   return isAuthenticated ? <NavbarMain /> : <Navbar />;
 }
