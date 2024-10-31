@@ -7,7 +7,7 @@
   justify-content: space-between;
 
   img {
-    height: 40px;
+    height: 5vh;
     width: fit-content;
     object-fit: auto;
   }
@@ -28,7 +28,7 @@
 // MAIN
 .payment-main {
   background-color: #ddebdd;
-  height: 100vh;
+  height: 95vh;
   padding: 5% 0;
 
   section {
@@ -133,6 +133,65 @@
 
       .details {
         border-top: 1px solid #ebebeb;
+        padding: 20px 10px;
+
+        div {
+          font-weight: bold;
+          width: fit-content;
+          display: flex;
+          align-items: center;
+
+          input[type='radio'] {
+            accent-color: #008000;
+            transform: scale(1.3);
+            border: 1px solid #ebebeb;
+            outline: none;
+          }
+
+          label {
+            margin-left: 10px;
+            font-size: 13px;
+          }
+
+          &:has(input[type='radio']) {
+            margin-left: 5%;
+          }
+        }
+
+        .card-details {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: auto;
+          gap: 20px;
+          margin: 0 auto;
+          width: 90%;
+
+          input {
+            border: none;
+            border-bottom: 1px solid #949494;
+
+            &:first-of-type {
+              grid-column: 1 / 4;
+            }
+
+            // Attempt to disable the number input field's spinners on Webkit browsers
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            // Doing something similar for firefox browsers
+            &[type='number'] {
+              -moz-appearance: textfield;
+              appearance: textfield;
+            }
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
       }
     }
 
@@ -183,6 +242,24 @@
   .payment-main {
     section {
       width: 90%;
+
+      .body {
+        .summary {
+          div {
+            &:last-of-type {
+              width: 10%;
+            }
+          }
+        }
+
+        .details {
+          .card-details {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+          }
+        }
+      }
 
       p {
         font-size: 10px;

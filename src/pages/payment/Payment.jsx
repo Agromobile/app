@@ -13,6 +13,32 @@ export default function Payment() {
   // For controlling the display of the payment option fields
   const [payOption, setPayOption] = useState(null);
 
+  // Creates an array of valid years and months starting from the current year and month respectively
+  const years = (() => {
+    const year = new Date().getFullYear();
+    const years = [];
+
+    for (let i = 0; i < 11; i++) {
+      years.push(year + i);
+    }
+
+    return years;
+  })();
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
   const handleChangePayOption = (value) => {
     setPayOption(value);
   };
@@ -60,14 +86,6 @@ export default function Payment() {
         <section>
           <div className="header">
             <span>choose a new payment method</span>
-            {/* <button onClick={() => setDetailsActive(!orderDetailsActive)}>
-              {orderDetailsActive ? (
-                <span>hide details</span>
-              ) : (
-                <span>see details</span>
-              )}
-              <IoChevronForward />
-            </button> */}
           </div>
           {/* Pay with USSD or bank transfer */}
           <div className="body">
@@ -91,10 +109,14 @@ export default function Payment() {
             </div>
             {payOption === 'option1' && (
               <div className="details">
-                {' '}
-                <span>
-                  This is supposed to contain payment selection information
-                </span>
+                <div>
+                  <input
+                    type="radio"
+                    id="bt"
+                    checked={payOption === 'option1'}
+                  />
+                  <label htmlFor="bt">Bank Transfer</label>
+                </div>
               </div>
             )}
           </div>
@@ -121,9 +143,53 @@ export default function Payment() {
             {payOption === 'option2' && (
               <div className="details">
                 {' '}
-                <span>
-                  This is supposed to contain payment selection information
-                </span>
+                <div className="card-details">
+                  {/* Card Number */}
+                  <input
+                    type="number"
+                    placeholder="Card Number"
+                  />
+
+                  {/* Month of expiry */}
+                  <input
+                    type="text"
+                    placeholder="Month"
+                    list="months"
+                  />
+                  <datalist id="months">
+                    {months.map((month, idx) => (
+                      <option
+                        key={idx}
+                        value={month}
+                      >
+                        {month}
+                      </option>
+                    ))}
+                  </datalist>
+
+                  {/* Year of expiry */}
+                  <input
+                    type="text"
+                    list="years"
+                    placeholder="Year"
+                  />
+                  <datalist id="years">
+                    {years.map((year, idx) => (
+                      <option
+                        key={idx}
+                        value={year}
+                      >
+                        {year}
+                      </option>
+                    ))}
+                  </datalist>
+
+                  {/* CVV - Number at the back of card */}
+                  <input
+                    type="number"
+                    placeholder="CVV"
+                  />
+                </div>
               </div>
             )}
           </div>
